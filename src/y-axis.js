@@ -66,6 +66,7 @@ class YAxis extends PureComponent {
             formatLabel,
             svg,
             children,
+            tickValues
         } = this.props
 
         const { height, width } = this.state
@@ -91,6 +92,8 @@ class YAxis extends PureComponent {
         const ticks = scale === d3Scale.scaleBand ?
             values :
             y.ticks(numberOfTicks)
+        
+        const finalTicks = tickValues || ticks
 
         const longestValue = ticks
             .map((value, index) => formatLabel(value, index))
@@ -122,7 +125,7 @@ class YAxis extends PureComponent {
                                 // don't render labels if width isn't measured yet,
                                 // causes rendering issues
                                 height > 0 &&
-                                ticks.map((value, index) => {
+                                finalTicks.map((value, index) => {
                                     return (
                                         <SVGText
                                             originY={ y(value) }
