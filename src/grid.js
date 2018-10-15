@@ -2,25 +2,46 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { G, Line } from 'react-native-svg'
 
-const Horizontal = ({ ticks = [], y, svg }) => {
-    return (
+const Horizontal = ({ ticks = [], tickValues = [], y, svg }) => {
+    if (tickValues) {
+        return (
         <G>
-            {
-                ticks.map(tick => (
-                    <Line
-                        key={ tick }
-                        x1={ '0%' }
-                        x2={ '100%' }
-                        y1={ y(tick) }
-                        y2={ y(tick) }
-                        strokeWidth={ 1 }
-                        stroke={ 'rgba(0,0,0,0.2)' }
-                        { ...svg }
-                    />
-                ))
-            }
-        </G>
-    )
+                {
+                    tickValues.map(tick => (
+                        <Line
+                            key={ tick }
+                            x1={ '0%' }
+                            x2={ '100%' }
+                            y1={ y(tick) }
+                            y2={ y(tick) }
+                            strokeWidth={ 1 }
+                            stroke={ 'rgba(0,0,0,0.2)' }
+                            { ...svg }
+                        />
+                    ))
+                }
+            </G>
+        )
+    } else {
+        return (
+        <G>
+                {
+                    ticks.map(tick => (
+                        <Line
+                            key={ tick }
+                            x1={ '0%' }
+                            x2={ '100%' }
+                            y1={ y(tick) }
+                            y2={ y(tick) }
+                            strokeWidth={ 1 }
+                            stroke={ 'rgba(0,0,0,0.2)' }
+                            { ...svg }
+                        />
+                    ))
+                }
+            </G>
+        )
+    }
 }
 
 const Vertical = ({ ticks = [], x, svg }) => {
