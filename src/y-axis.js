@@ -33,7 +33,11 @@ class YAxis extends PureComponent {
         const y = scale()
             .domain(domain)
             .range([ height - bottom, top ])
-
+        
+        if (scale === d3Scale.scaleLog) {
+            y.base(10)
+        }
+        
         if (scale === d3Scale.scaleBand) {
 
             // use index as domain identifier instead of value since
@@ -129,7 +133,11 @@ class YAxis extends PureComponent {
                                             key={ index }
                                             y={ y(value) }
                                         >
-                                            {formatLabel(value, index)}
+                                            {
+                                                (scale === d3Scale.scaleLog && value === 1)
+                                                ?   formatLabel(0, index)
+                                                :   formatLabel(value, index)
+                                            }
                                         </SVGText>
                                     )
                                 })
